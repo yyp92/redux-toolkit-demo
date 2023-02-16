@@ -6,7 +6,7 @@ const Navbar = () => {
     return (
         <nav>
             <section>
-                <h1>Redux 基础教程示例</h1>
+                {/* <h1>Redux 基础教程示例</h1> */}
 
                 <div className="navContent">
                     <div className="navLinks">

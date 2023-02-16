@@ -35,7 +35,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Provider store={store}>
-          <h1>Redux Toolkit Demo</h1>
+          {/* <h1>Redux Toolkit Demo</h1> */}
 
           <Navbar />
 
