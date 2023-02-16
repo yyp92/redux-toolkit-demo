@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { nanoid } from '@reduxjs/toolkit'
-import { postAdded, postUpdated } from '../store/features/postsSlice'
+// import { postAdded, postUpdated, selectPostById } from '../store/features/postsSlice'
+import { postUpdated, selectPostById } from '../store/features/postsSlice'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const EditPostForm  = () => {
@@ -9,9 +10,7 @@ const EditPostForm  = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const post = useSelector((state: any) =>
-        state.posts.find((post: any) => post.id === postId)
-    )
+    const post = useSelector((state: any) => selectPostById(state, postId))
 
     const [title, setTitle] = useState(post.title)
     const [content, setContent] = useState(post.content)
@@ -30,35 +29,28 @@ const EditPostForm  = () => {
         <section>
             <h2>添加新文章</h2>
 
-            <form style={{display: 'flex', flexDirection: 'column'}}>
-                <div>
-                    <label htmlFor="postTitle">文章标题:</label>
+            <form>
+                <label htmlFor="postTitle">Post Title:</label>
+                <input
+                    type="text"
+                    id="postTitle"
+                    name="postTitle"
+                    placeholder="What's on your mind?"
+                    value={title}
+                    onChange={onTitleChanged}
+                />
 
-                    <input
-                        type="text"
-                        id="postTitle"
-                        name="postTitle"
-                        value={title}
-                        onChange={onTitleChanged}
-                    />
-                </div>
-
-                <div style={{marginTop: '20px', display: 'flex', justifyContent: 'center'}}>
-                    <label  htmlFor="postContent">内容：</label>
-
-                    <textarea
-                        id="postContent"
-                        name="postContent"
-                        value={content}
-                        onChange={onContentChanged}
-                    />
-                </div>
+                <label htmlFor="postContent">Content:</label>
+                <textarea
+                    id="postContent"
+                    name="postContent"
+                    value={content}
+                    onChange={onContentChanged}
+                />
                 
-                <button
-                    style={{margin: '20px auto', width: '120px'}}
-                    type="button"
-                    onClick={onSavePostClicked}
-                >保存文章</button>
+                <button type="button" onClick={onSavePostClicked}>
+                    Save Post
+                </button>
             </form>
         </section>
     )
